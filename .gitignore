@@ -1,0 +1,43 @@
+# .NET build output
+**/[Bb]in/
+**/[Oo]bj/
+**/[Aa]rtifacts/
+**/[Tt]est[Rr]esult*/
+**/packages/
+*.nupkg
+*.snupkg
+
+# Test and coverage output
+coverage/
+*.coverage
+*.coveragexml
+*.trx
+
+# IDE and local files
+.vs/
+.vscode/*
+!.vscode/tasks.json
+*.user
+*.suo
+*.userosscache
+*.pidb
+*.sln.docstates
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local game data, archives, and generated manifests
+*.pak
+*.ovl
+*.resources
+game-data/
+local-data/
+manifests/generated/
+
+# Secrets and local configuration
+*.env
+*.env.*
+!.env.example
+*.pfx
+*.publishsettings

@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Create session plan artifact",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$content = @'\n# AlienIsolation.Server Networking Plan\n\n## Problem and approach\n\nCreate the initial networking foundation for the standalone `AlienIsolation.Server` .NET 8 application, following [COPILOT_INSTRUCTIONS.md](../../../../projects/alien-isolation-multiplayer/COPILOT_INSTRUCTIONS.md). Add the requested project structure and implement asynchronous TCP handshake handling, binary packet serialization, and a minimal UDP listener while preserving the documented protocol and existing project configuration.\n\n## Confirmed protocol decisions\n\n- TCP messages use a 4-byte little-endian length prefix because TCP does not preserve packet boundaries.\n- `ServerListener` provides asynchronous TCP handshake/login handling and a minimal UDP listener on port `7777`.\n- Full UDP transform relay is deferred from this slice.\n- The initial structure includes `Networking` and client/shared-model areas; `State`, `World`, and `Player` implementations remain deferred.\n\n## Implementation todos\n\n1. Create the initial folder structure under `AlienIsolation.Server` for networking and client/shared models.\n2. Implement `Networking/PacketHandler.cs` with `BinaryWriter`/`BinaryReader` serialization and deserialization for:\n   - `PACKET_CONNECT (0x01)`\n   - `PACKET_TRANSFORM (0x02)`\n   - `PACKET_RPC (0x03)`\n   - `PACKET_SAVE (0x04)`\n3. Add explicit validation for unsupported opcodes, malformed payloads, invalid lengths, and truncated packets.\n4. Implement `Networking/ServerListener.cs` with:\n   - Asynchronous TCP accept and client lifecycle handling.\n   - Length-prefixed TCP handshake processing.\n   - Minimal UDP listener on port `7777`.\n   - Cancellation and clean shutdown.\n   - Explicit protocol and connection error handling.\n5. Wire server startup and shutdown through `Program.cs`.\n6. Build the project and run targeted verification for serialization, framing, listener startup, and shutdown behavior.\n\n## Dependencies and considerations\n\n- Packet definitions should use strongly typed models and preserve the byte layout in `COPILOT_INSTRUCTIONS.md`.\n- Existing .NET 8 settings and the `CathodeLib` project reference should remain unchanged unless compilation requires a directly related adjustment.\n- Thread-safe collections and cancellation tokens should be used for active client/session lifecycle management.\n- The implementation should avoid silently accepting malformed input or swallowing network errors.\n- No unrelated gameplay, inventory, world synchronization, or respawn systems are included in this slice.\n'@; Set-Content -LiteralPath 'C:\\Users\\adamz\\.copilot\\session-state\\0e0acbce-d751-406f-a705-a56bde314790\\plan.md' -Value $content -Encoding utf8; Remove-Item -LiteralPath 'C:\\projects\\alien-isolation-multiplayer\\.vscode\\tasks.json' -Force -ErrorAction SilentlyContinue"
+			],
+			"isBackground": false
+		}
+	]
+}
